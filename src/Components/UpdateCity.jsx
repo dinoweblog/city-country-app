@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   citySuccessFun,
   cityErrorFun,
   cityLoadingFun,
+  getCityData,
 } from "../Redux/City/action";
 
 import { getCountryData } from "../Redux/Country/action";
 
 const Div = styled.div`
-  width: 30%;
+  width: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  background-color: #e9e9e9;
+  gap: 10px;
   box-sizing: border-box;
   padding: 2%;
   border-radius: 8px;
-  margin-top: 30px;
   input,
   select {
-    height: 33px;
-    padding-left: 15px;
+    height: 32px;
+    padding-left: 10px;
     outline: none;
   }
   button {
@@ -31,30 +31,35 @@ const Div = styled.div`
     border: none;
     background-color: tomato;
     color: white;
+
     :hover {
       opacity: 0.9;
     }
   }
   label {
-    font-size: 18px;
-    margin-bottom: -18px;
+    font-size: 15px;
   }
 `;
 
-export const City = () => {
+export const UpdateCity = ({ id, setShowModal, showModal }) => {
   const [city, setCity] = useState("");
   const [ctry, setCountry] = useState("");
   const [population, setPopulation] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { country } = useSelector((state) => state.country);
 
   const funCall = () => {
     dispatch(getCountryData());
   };
+  const fetchData = () => {
+    dispatch(getCityData());
+  };
   useEffect(() => {
     funCall();
-  }, []);
+    fetchData();
+  }, [showModal]);
 
   const handleSubmit = () => {
     const cityAdd = {
@@ -64,8 +69,8 @@ export const City = () => {
     };
 
     dispatch(cityLoadingFun);
-    fetch(`https://employees-dino-app.herokuapp.com/city`, {
-      method: "POST",
+    fetch(`https://employees-dino-app.herokuapp.com/city/${id}`, {
+      method: "PUT",
       body: JSON.stringify(cityAdd),
       headers: {
         "Content-Type": "application/json",
@@ -74,6 +79,7 @@ export const City = () => {
       .then((res) => res.json())
       .then((res) => {
         dispatch(citySuccessFun(res));
+        fetchData();
       })
       .catch((error) => dispatch(cityErrorFun()));
   };
@@ -106,9 +112,10 @@ export const City = () => {
       <button
         onClick={() => {
           handleSubmit();
+          setShowModal((prev) => !prev);
         }}
       >
-        Add
+        Update
       </button>
     </Div>
   );

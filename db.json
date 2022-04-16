@@ -3,13 +3,24 @@
     {
       "country": "India",
       "id": 1
+    },
+    {
+      "country": "USA",
+      "id": 2
     }
   ],
   "city": [
     {
-      "city": "Bgp",
-      "population": "415561545",
-      "id": 4
+      "city": "Pune",
+      "population": "13214234324",
+      "country": "India",
+      "id": 1
+    },
+    {
+      "city": "patna",
+      "population": "30000000",
+      "country": "India",
+      "id": 2
     }
   ]
 }

@@ -17,7 +17,7 @@ const enhancer = composeEnhancers(
   applyMiddleware(...middleware)
   // other store enhancers if any
 );
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   city: cityReducer,
   country: countryReducer,
 });
