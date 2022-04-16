@@ -17,7 +17,7 @@ export const cityErrorFun = () => ({
 
 export const getCityData = () => (dispatch) => {
   dispatch(cityLoadingFun());
-  fetch(`http://localhost:3000/city`)
+  fetch(`https://employees-dino-app.herokuapp.com/city`)
     .then((res) => res.json())
     .then((res) => {
       dispatch(citySuccessFun(res));
