@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useStore } from "react-redux";
+
 import {
+  citySuccessFun,
   cityErrorFun,
   cityLoadingFun,
-  citySuccessFun,
-} from "../Redux/city/action";
+} from "../Redux/City/action";
 
 export const City = () => {
   const [city, setCity] = useState("");
